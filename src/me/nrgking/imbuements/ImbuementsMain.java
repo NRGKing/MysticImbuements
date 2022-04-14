@@ -22,6 +22,9 @@ public final class ImbuementsMain extends JavaPlugin {
     private static ImbuementsMain plugin;
 
     public static Glow glow;
+    public static FireResFruit fireResFruit;
+    public static Poison poison;
+
     public static NamespacedKey glowkey;
     public static NamespacedKey firereskey;
     public static NamespacedKey poisonkey;
@@ -31,7 +34,11 @@ public final class ImbuementsMain extends JavaPlugin {
         plugin = this;
         NamespacedKey glowkey = (new NamespacedKey(this, "glow"));
         NamespacedKey firereskey = (new NamespacedKey(this, "fireres"));
-        NamespacedKey poison = (new NamespacedKey(this, "poison"));
+        NamespacedKey poisonkey = (new NamespacedKey(this, "poison"));
+
+        this.glowkey = glowkey;
+        this.poisonkey = poisonkey;
+        this.firereskey = firereskey;
 
 
         this.getServer().getPluginManager().registerEvents(new Glow(), this );
