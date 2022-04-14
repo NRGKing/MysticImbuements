@@ -3,3 +3,4 @@ author: NRGKing
 main: me.nrgking.imbuements.ImbuementsMain
 api-version: 1.18
 version: 0.1
+description: A 1.18.2 Spigot plugin that features customizeable imbuements to further customize your weapons and combat.
