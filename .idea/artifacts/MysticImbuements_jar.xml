@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MysticImbuements:jar">
+    <output-path>$PROJECT_DIR$/../../WinterSMP</output-path>
+    <root id="archive" name="MysticImbuements.jar">
+      <element id="module-output" name="MysticImbuements" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Dependencies/spigot-api-1.18.2.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
