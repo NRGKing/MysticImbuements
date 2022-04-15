@@ -2,6 +2,7 @@ package me.nrgking.imbuements.Imbuements;
 
 import me.nrgking.imbuements.ImbuementsMain;
 import org.bukkit.*;
+import org.bukkit.block.Biome;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -19,15 +20,15 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.Objects;
 
-public class Poison implements Listener {
+public class Freeze implements Listener {
 
-    NamespacedKey poisonkey = ImbuementsMain.poisonkey;
+    NamespacedKey freezekey = ImbuementsMain.freezekey;
 
     FileConfiguration c = ImbuementsMain.getPlugin().c;
 
 
     @EventHandler
-    public void PoisonHit(EntityDamageByEntityEvent e) {
+    public void FreezeHit(EntityDamageByEntityEvent e) {
         if (e.getEntity() instanceof LivingEntity) {
             if (e.getDamager() instanceof Player) {
                 Player player = (Player) e.getDamager();
@@ -41,11 +42,11 @@ public class Poison implements Listener {
                         ItemMeta meta = item.getItemMeta();
                         if (meta != null) {
                             PersistentDataContainer data = Objects.requireNonNull(meta).getPersistentDataContainer();
-                            Integer duration = c.getInt("poisonduration");
-                            if (data.has(poisonkey, PersistentDataType.STRING)) {
-                                victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON, duration, 1));
+                            Integer duration = c.getInt("freezeticks");
+                            if (data.has(freezekey, PersistentDataType.STRING)) {
+                                victim.setFreezeTicks(c.getInt("freezeticks"));
 
-                                if (!c.getBoolean("permanentimbuements")) { data.remove(poisonkey); }
+                                if (!c.getBoolean("permanentimbuements")) { data.remove(freezekey); }
                                 item.setItemMeta(meta);
                             }
                         }
@@ -56,7 +57,7 @@ public class Poison implements Listener {
     }
 
     @EventHandler
-    public void PoisonInteract(PlayerInteractEvent e) {
+    public void FreezeInteract(PlayerInteractEvent e) {
         if(e.getHand() == EquipmentSlot.HAND) return;
         if (e.getAction() == e.getAction().RIGHT_CLICK_AIR) {
             Player player = (Player) e.getPlayer();
@@ -65,28 +66,22 @@ public class Poison implements Listener {
             ItemStack item = Objects.requireNonNull(player.getEquipment()).getItemInMainHand();
             ItemStack item2 = player.getEquipment().getItemInOffHand();
             if (!(item == null && item2 == null)) {
-
                 ItemMeta meta = item.getItemMeta();
                 PersistentDataContainer data = null;
-                ItemMeta meta2 = item2.getItemMeta();
-
-                PersistentDataContainer data2 = null;
-                if (meta2 != null && meta != null) {
-                    data2 = meta2.getPersistentDataContainer();
-                    if (data2.has(poisonkey, PersistentDataType.STRING)) {
+                    if (item2.getType().equals(Material.DIAMOND_BLOCK) && player.getLocation().getBlock().getBiome() == Biome.SNOWY_SLOPES) {
                         if (item.getType().equals(Material.DIAMOND_SWORD) || item.getType().equals(Material.NETHERITE_SWORD)) {
-                            if(e.getPlayer().getEquipment().getItemInMainHand().getItemMeta().getPersistentDataContainer().has(poisonkey, PersistentDataType.STRING)) return;
-
                             data = meta.getPersistentDataContainer();
                             if (c.getBoolean("logging")) {
-                                Bukkit.getLogger().info(playername + " imbued the Poison imbuement");
+                                Bukkit.getLogger().info(playername + " imbued the Freeze imbuement");
                             }
 
-                            data.set(poisonkey, PersistentDataType.STRING, "poison");
+                            if(e.getPlayer().getEquipment().getItemInMainHand().getItemMeta().getPersistentDataContainer().has(freezekey, PersistentDataType.STRING)) return;
+
+                            data.set(freezekey, PersistentDataType.STRING, "freeze");
 
                             item.setItemMeta(meta);
 
-                            player.sendMessage(ChatColor.GREEN + "Your weapon drips with poisonous liquid.");
+                            player.sendMessage(ChatColor.BLUE + "Your weapon grows cold to the touch.");
                             player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, player.getLocation().getX(), player.getLocation().getY() + 1, player.getLocation().getZ(), 40);
                             player.playSound(player.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
 
@@ -95,9 +90,6 @@ public class Poison implements Listener {
                         }
 
                     }
-                }
-
-
             }
         }
     }

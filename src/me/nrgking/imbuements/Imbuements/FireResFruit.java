@@ -60,6 +60,8 @@ public class FireResFruit implements Listener {
             ItemStack item2 = player.getEquipment().getItemInOffHand();
             if (item.getType().equals(Material.APPLE) && item2.getType().equals(Material.MAGMA_CREAM) && item.getAmount() == 1 && player.getLocation().getBlock().getBiome() == Biome.NETHER_WASTES) {
                 {
+                    if(e.getPlayer().getEquipment().getItemInMainHand().getItemMeta().getPersistentDataContainer().has(firereskey, PersistentDataType.STRING)) return;
+
                     ItemStack fresitem = new ItemStack(Material.APPLE, 1);
                     ItemMeta fresmeta = fresitem.getItemMeta();
                     PersistentDataContainer fresdata = fresmeta.getPersistentDataContainer();

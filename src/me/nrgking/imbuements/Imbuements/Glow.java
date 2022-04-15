@@ -45,7 +45,7 @@ public class Glow implements Listener {
                                 Integer duration = c.getInt("glowingduration");
                                 victim.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, duration, 1));
 
-                                data.remove(glowkey);
+                                if (!c.getBoolean("permanentimbuements")) { data.remove(glowkey); }
                                 item.setItemMeta(meta);
                             }
                         }
@@ -75,6 +75,8 @@ public class Glow implements Listener {
                         data2 = meta2.getPersistentDataContainer();
                         if (data2.has(glowkey, PersistentDataType.STRING)) {
                             if (item.getType().equals(Material.DIAMOND_SWORD) || item.getType().equals(Material.NETHERITE_SWORD)) {
+                                if(e.getPlayer().getEquipment().getItemInMainHand().getItemMeta().getPersistentDataContainer().has(glowkey, PersistentDataType.STRING)) return;
+
                                 data = meta.getPersistentDataContainer();
                                 if (c.getBoolean("logging")) {
                                     Bukkit.getLogger().info(playername + " imbued the Glowing imbuement");
