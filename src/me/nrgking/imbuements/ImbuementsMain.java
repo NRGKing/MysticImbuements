@@ -45,43 +45,16 @@ public final class ImbuementsMain extends JavaPlugin {
         this.firereskey = firereskey;
         this.freezekey = freezekey;
 
-        //glow recipe
+
         this.getServer().getPluginManager().registerEvents(new Glow(), this );
-        ItemStack glowitem = new ItemStack(Material.BOOK, 1);
-        ItemMeta glowmeta = glowitem.getItemMeta();
-        PersistentDataContainer glowdata = glowmeta.getPersistentDataContainer();
-        glowmeta.setDisplayName("§dGlowing Spellbook");
-        glowdata.set(glowkey, PersistentDataType.STRING, "glow");
-        glowitem.setItemMeta(glowmeta);
-        NamespacedKey glowrecipekey = new NamespacedKey(this, "glowrecipekey");
-        ShapedRecipe glowrecipe = new ShapedRecipe(glowrecipekey, glowitem);
-        glowrecipe.shape("WEW", "GCG", "WEW");
-        glowrecipe.setIngredient('E', Material.GOLD_BLOCK);
-        glowrecipe.setIngredient('W', Material.GLOW_BERRIES);
-        glowrecipe.setIngredient('G', Material.GOLDEN_CARROT);
-        glowrecipe.setIngredient('C', Material.BOOK);
-        Bukkit.addRecipe(glowrecipe);
 
         this.getServer().getPluginManager().registerEvents(new FireResFruit(), this);
 
-        //poison book recipe
         this.getServer().getPluginManager().registerEvents(new Poison(), this );
-        ItemStack poisonitem = new ItemStack(Material.GREEN_DYE, 1);
-        ItemMeta poisonmeta = poisonitem.getItemMeta();
-        PersistentDataContainer poisondata = poisonmeta.getPersistentDataContainer();
-        poisonmeta.setDisplayName(ChatColor.GREEN + "Putrid Rub");
-        poisondata.set(poisonkey, PersistentDataType.STRING, "poison");
-        poisonitem.setItemMeta(poisonmeta);
-        NamespacedKey poisonrecipekey = new NamespacedKey(this, "poisonrecipekey");
-        ShapedRecipe poisonrecipe = new ShapedRecipe(poisonrecipekey, poisonitem);
-        poisonrecipe.shape("WEW", "GCG", "WEW");
-        poisonrecipe.setIngredient('E', Material.EMERALD_BLOCK);
-        poisonrecipe.setIngredient('W', Material.MOSS_BLOCK);
-        poisonrecipe.setIngredient('G', Material.KELP);
-        poisonrecipe.setIngredient('C', Material.LIGHT_GRAY_DYE);
-        Bukkit.addRecipe(poisonrecipe);
 
         this.getServer().getPluginManager().registerEvents(new Freeze(), this);
+
+        this.getServer().getPluginManager().registerEvents(new ArtificerTable(), this);
 
         c.addDefault("logging", true);
         c.addDefault("poisonduration", 100);

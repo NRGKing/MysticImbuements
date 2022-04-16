@@ -77,9 +77,9 @@ public class Poison implements Listener {
                     data2 = meta2.getPersistentDataContainer();
                     if (data2.has(poisonkey, PersistentDataType.STRING)) {
                         if (item.getType().equals(Material.DIAMOND_SWORD) || item.getType().equals(Material.NETHERITE_SWORD)) {
+                            data = meta.getPersistentDataContainer();
                             if(data.has(freezekey, PersistentDataType.STRING) || data.has(poisonkey, PersistentDataType.STRING) || data.has(glowkey, PersistentDataType.STRING)) return;
 
-                            data = meta.getPersistentDataContainer();
                             if (c.getBoolean("logging")) {
                                 Bukkit.getLogger().info(playername + " imbued the Poison imbuement");
                             }

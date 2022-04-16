@@ -37,20 +37,16 @@ public class Freeze implements Listener {
                 if (e.getEntity() instanceof Player); {
                     if (player.getEquipment().getItemInMainHand() != null) {
                         LivingEntity victim = (LivingEntity) e.getEntity();
-
-
                         ItemStack item = Objects.requireNonNull(player.getEquipment()).getItemInMainHand();
-
                         ItemMeta meta = item.getItemMeta();
-                        if (meta != null) {
-                            PersistentDataContainer data = Objects.requireNonNull(meta).getPersistentDataContainer();
+                        if (meta == null) return;
+                        PersistentDataContainer data = Objects.requireNonNull(meta).getPersistentDataContainer();
                             Integer duration = c.getInt("freezeticks");
                             if (data.has(freezekey, PersistentDataType.STRING)) {
                                 victim.setFreezeTicks(c.getInt("freezeticks"));
 
                                 if (!c.getBoolean("permanentimbuements")) { data.remove(freezekey); }
                                 item.setItemMeta(meta);
-                            }
                         }
                     }
                 }

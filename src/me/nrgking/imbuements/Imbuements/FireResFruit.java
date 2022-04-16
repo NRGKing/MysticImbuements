@@ -33,20 +33,16 @@ public class FireResFruit implements Listener {
     @EventHandler
     public void FresFruitEat(PlayerItemConsumeEvent e) {
         Player player = e.getPlayer();
-        if (player.getEquipment().getItemInMainHand() != null) {
+        if (player.getEquipment().getItemInMainHand() == null) return;
             ItemStack item = Objects.requireNonNull(player.getEquipment()).getItemInMainHand();
-
             ItemMeta meta = item.getItemMeta();
             PersistentDataContainer data = Objects.requireNonNull(meta).getPersistentDataContainer();
-
-
             if (data.has(firereskey, PersistentDataType.STRING)) {
                         player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 8000, 1));
 
                         data.remove(firereskey);
                         item.setItemMeta(meta);
             }
-        }
     }
 
     @EventHandler
@@ -60,7 +56,6 @@ public class FireResFruit implements Listener {
             ItemStack item2 = player.getEquipment().getItemInOffHand();
             if (item.getType().equals(Material.APPLE) && item2.getType().equals(Material.MAGMA_CREAM) && item.getAmount() == 1 && player.getLocation().getBlock().getBiome() == Biome.NETHER_WASTES) {
                 {
-                    if(e.getPlayer().getEquipment().getItemInMainHand().getItemMeta().getPersistentDataContainer().has(firereskey, PersistentDataType.STRING)) return;
 
                     ItemStack fresitem = new ItemStack(Material.APPLE, 1);
                     ItemMeta fresmeta = fresitem.getItemMeta();
