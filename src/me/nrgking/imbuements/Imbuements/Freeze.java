@@ -23,6 +23,8 @@ import java.util.Objects;
 public class Freeze implements Listener {
 
     NamespacedKey freezekey = ImbuementsMain.freezekey;
+    NamespacedKey poisonkey = ImbuementsMain.poisonkey;
+    NamespacedKey glowkey = ImbuementsMain.glowkey;
 
     FileConfiguration c = ImbuementsMain.getPlugin().c;
 
@@ -75,7 +77,7 @@ public class Freeze implements Listener {
                                 Bukkit.getLogger().info(playername + " imbued the Freeze imbuement");
                             }
 
-                            if(e.getPlayer().getEquipment().getItemInMainHand().getItemMeta().getPersistentDataContainer().has(freezekey, PersistentDataType.STRING)) return;
+                            if(data.has(freezekey, PersistentDataType.STRING) || data.has(poisonkey, PersistentDataType.STRING) || data.has(glowkey, PersistentDataType.STRING)) return;
 
                             data.set(freezekey, PersistentDataType.STRING, "freeze");
 

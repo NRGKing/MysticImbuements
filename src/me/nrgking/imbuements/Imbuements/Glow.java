@@ -21,6 +21,8 @@ import java.util.Objects;
 
 public class Glow implements Listener {
 
+    NamespacedKey freezekey = ImbuementsMain.freezekey;
+    NamespacedKey poisonkey = ImbuementsMain.poisonkey;
     NamespacedKey glowkey = ImbuementsMain.glowkey;
 
     FileConfiguration c = ImbuementsMain.getPlugin().c;
@@ -75,7 +77,7 @@ public class Glow implements Listener {
                         data2 = meta2.getPersistentDataContainer();
                         if (data2.has(glowkey, PersistentDataType.STRING)) {
                             if (item.getType().equals(Material.DIAMOND_SWORD) || item.getType().equals(Material.NETHERITE_SWORD)) {
-                                if(e.getPlayer().getEquipment().getItemInMainHand().getItemMeta().getPersistentDataContainer().has(glowkey, PersistentDataType.STRING)) return;
+                                if(data.has(freezekey, PersistentDataType.STRING) || data.has(poisonkey, PersistentDataType.STRING) || data.has(glowkey, PersistentDataType.STRING)) return;
 
                                 data = meta.getPersistentDataContainer();
                                 if (c.getBoolean("logging")) {
