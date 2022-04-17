@@ -3,3 +3,9 @@
 *.xml
 .idea/artifacts/MysticImbuements_jar.xml
 .idea/misc.xml
+*.xml
+out/production/MysticImbuements/me/nrgking/imbuements/Imbuements/Glow.class
+out/production/MysticImbuements/me/nrgking/imbuements/Imbuements/Poison.class
+out/production/MysticImbuements/me/nrgking/imbuements/Imbuements/Freeze.class
+out/production/MysticImbuements/me/nrgking/imbuements/Imbuements/FireResFruit.class
+out/production/MysticImbuements/me/nrgking/imbuements/ImbuementsMain.class
