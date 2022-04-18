@@ -38,7 +38,7 @@ public class FireResFruit implements Listener {
             ItemMeta meta = item.getItemMeta();
             PersistentDataContainer data = Objects.requireNonNull(meta).getPersistentDataContainer();
             if (data.has(firereskey, PersistentDataType.STRING)) {
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 8000, 1));
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 8000, 0));
 
                         data.remove(firereskey);
                         item.setItemMeta(meta);

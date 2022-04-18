@@ -52,7 +52,7 @@ public class ArtificerTable implements Listener {
         ItemStack item2 = player.getEquipment().getItemInOffHand();
         Block block = e.getClickedBlock();
         if (!(block.getType().equals(Material.BOOKSHELF))) return;
-        if (!(item.getType().equals(Material.BOOK) || item.getType().equals(Material.REDSTONE))) return;
+        if (!(item.getType().equals(Material.BOOK) || item.getType().equals(Material.GLOWSTONE_DUST))) return;
         if (!(block.getRelative(BlockFace.UP).getType() == (Material.PURPUR_SLAB) || (block.getRelative(BlockFace.UP).getType() == (Material.END_STONE_BRICK_SLAB))))
             ;
 
@@ -89,9 +89,9 @@ public class ArtificerTable implements Listener {
             item2.setAmount(item2.getAmount() - 32);
             player.giveExp(-900);
 
-        } else if (item2.getType().equals(Material.SUGAR) && item2.getAmount() >= 64 && item.getAmount() == 1 && exp >= 900 && upblock == Material.END_STONE_BRICK_SLAB && item.getType() == Material.REDSTONE) {
+        } else if (item2.getType().equals(Material.SUGAR) && item2.getAmount() >= 64 && item.getAmount() == 1 && exp >= 900 && upblock == Material.END_STONE_BRICK_SLAB && item.getType() == Material.GLOWSTONE_DUST) {
             List<String> lore = new ArrayList<>();
-            ItemStack swiftredstone = new ItemStack(Material.REDSTONE, 1);
+            ItemStack swiftredstone = new ItemStack(Material.SUGAR, 1);
             ItemMeta swiftmeta = swiftredstone.getItemMeta();
             PersistentDataContainer swiftdata = swiftmeta.getPersistentDataContainer();
 
@@ -103,7 +103,7 @@ public class ArtificerTable implements Listener {
             swiftredstone.setItemMeta(swiftmeta);
 
             player.getEquipment().setItemInMainHand(swiftredstone);
-            player.sendMessage(ChatColor.WHITE + "The sugar infuses into the redstone, making a redstone that would be good to put on food.");
+            player.sendMessage(ChatColor.WHITE + "The sugar infuses into the dust, making a speedy-feeling mixture.");
             item2.setAmount(0);
             player.giveExp(-900);
         }

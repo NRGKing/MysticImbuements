@@ -45,7 +45,7 @@ public class Poison implements Listener {
                             PersistentDataContainer data = Objects.requireNonNull(meta).getPersistentDataContainer();
                             Integer duration = c.getInt("poisonduration");
                             if (data.has(poisonkey, PersistentDataType.STRING)) {
-                                victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON, duration, 1));
+                                victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON, duration, 0));
 
                                 if (!c.getBoolean("permanentimbuements")) { data.remove(poisonkey); }
                                 item.setItemMeta(meta);

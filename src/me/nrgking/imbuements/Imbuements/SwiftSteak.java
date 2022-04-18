@@ -38,7 +38,7 @@ public class SwiftSteak implements Listener {
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer data = Objects.requireNonNull(meta).getPersistentDataContainer();
         if (data.has(swiftkey, PersistentDataType.STRING)) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 6000, 2));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 6000, 3));
 
             data.remove(swiftkey);
             item.setItemMeta(meta);
@@ -55,7 +55,7 @@ public class SwiftSteak implements Listener {
             ItemStack item = Objects.requireNonNull(player.getEquipment()).getItemInMainHand();
             ItemStack item2 = player.getEquipment().getItemInOffHand();
             if(item2.getItemMeta() == null) return;
-            if(item2.getType() != Material.REDSTONE) return;
+            if(item2.getType() != Material.SUGAR) return;
             ItemMeta meta2 = item2.getItemMeta();
             if (item.getType().equals(Material.COOKED_BEEF) && meta2.getPersistentDataContainer().has(swiftkey, PersistentDataType.STRING) && item.getAmount() == 1) {
                 {
