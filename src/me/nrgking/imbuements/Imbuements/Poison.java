@@ -73,6 +73,7 @@ public class Poison implements Listener {
                 ItemMeta meta2 = item2.getItemMeta();
 
                 PersistentDataContainer data2 = null;
+                if(item2.getType() != Material.GREEN_DYE) return;
                 if (meta2 != null && meta != null) {
                     data2 = meta2.getPersistentDataContainer();
                     if (data2.has(poisonkey, PersistentDataType.STRING)) {

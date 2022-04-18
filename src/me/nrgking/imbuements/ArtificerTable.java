@@ -21,6 +21,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import javax.naming.Name;
+import java.util.ArrayList;
+import java.util.List;
+
+import static me.nrgking.imbuements.ImbuementsMain.swiftkey;
+
 public class ArtificerTable implements Listener {
 
     FileConfiguration c = ImbuementsMain.getPlugin().c;
@@ -29,28 +35,34 @@ public class ArtificerTable implements Listener {
     NamespacedKey poisonkey = ImbuementsMain.poisonkey;
     NamespacedKey glowkey = ImbuementsMain.glowkey;
 
+    NamespacedKey swiftkey = ImbuementsMain.swiftkey;
+
     @EventHandler
     public void artificerUse(PlayerInteractEvent e) {
 
 
         if (e.getHand() == EquipmentSlot.HAND) return;
         if (e.getClickedBlock() == null) return;
-        if (e.getPlayer().getEquipment().getItemInMainHand() == null || e.getPlayer().getEquipment().getItemInOffHand() == null) return;
+        if (e.getPlayer().getEquipment().getItemInMainHand() == null || e.getPlayer().getEquipment().getItemInOffHand() == null)
+            return;
 
 
         Player player = e.getPlayer();
         ItemStack item = player.getEquipment().getItemInMainHand();
         ItemStack item2 = player.getEquipment().getItemInOffHand();
         Block block = e.getClickedBlock();
-        if (!(block.getType().equals(Material.BOOKSHELF) && block.getRelative(BlockFace.UP).getType() == (Material.PURPUR_SLAB))) return;
-        if (!(item.getType().equals(Material.BOOK))) return;
+        if (!(block.getType().equals(Material.BOOKSHELF))) return;
+        if (!(item.getType().equals(Material.BOOK) || item.getType().equals(Material.REDSTONE))) return;
+        if (!(block.getRelative(BlockFace.UP).getType() == (Material.PURPUR_SLAB) || (block.getRelative(BlockFace.UP).getType() == (Material.END_STONE_BRICK_SLAB))))
+            ;
 
+        Material upblock = block.getRelative(BlockFace.UP).getType();
         Integer exp = player.getTotalExperience();
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer data = meta.getPersistentDataContainer();
 
         //glow spellbook
-        if(item2.getType().equals(Material.GLOWSTONE_DUST) && item2.getAmount() >= 8 && item.getAmount() == 1 && exp >= 700) {
+        if (item2.getType().equals(Material.GLOWSTONE_DUST) && item2.getAmount() >= 8 && item.getAmount() == 1 && exp >= 700 && upblock == Material.PURPUR_SLAB && item.getType() == Material.BOOK) {
             ItemStack glowitem = new ItemStack(Material.BOOK, 1);
             ItemMeta glowmeta = glowitem.getItemMeta();
             PersistentDataContainer glowdata = glowmeta.getPersistentDataContainer();
@@ -63,8 +75,8 @@ public class ArtificerTable implements Listener {
             item2.setAmount(item2.getAmount() - 8);
             player.giveExp(-700);
 
-        //poison spellbook
-        } else if (item2.getType().equals(Material.KELP) && item2.getAmount() >= 32 && item.getAmount() == 1 && exp >= 900){
+            //poison spellbook
+        } else if (item2.getType().equals(Material.KELP) && item2.getAmount() >= 32 && item.getAmount() == 1 && exp >= 900 && upblock == Material.PURPUR_SLAB && item.getType() == Material.BOOK) {
             ItemStack poisonitem = new ItemStack(Material.GREEN_DYE, 1);
             ItemMeta poisonmeta = poisonitem.getItemMeta();
             PersistentDataContainer poisondata = poisonmeta.getPersistentDataContainer();
@@ -77,8 +89,25 @@ public class ArtificerTable implements Listener {
             item2.setAmount(item2.getAmount() - 32);
             player.giveExp(-900);
 
+        } else if (item2.getType().equals(Material.SUGAR) && item2.getAmount() >= 64 && item.getAmount() == 1 && exp >= 900 && upblock == Material.END_STONE_BRICK_SLAB && item.getType() == Material.REDSTONE) {
+            List<String> lore = new ArrayList<>();
+            ItemStack swiftredstone = new ItemStack(Material.REDSTONE, 1);
+            ItemMeta swiftmeta = swiftredstone.getItemMeta();
+            PersistentDataContainer swiftdata = swiftmeta.getPersistentDataContainer();
+
+            swiftmeta.setDisplayName(ChatColor.YELLOW + "Speed Enhancing Spice");
+            lore.add(ChatColor.DARK_GRAY + "Would fit well on " + ChatColor.LIGHT_PURPLE + "steak.");
+            swiftmeta.setLore(lore);
+
+            swiftdata.set(swiftkey, PersistentDataType.STRING, "swift");
+            swiftredstone.setItemMeta(swiftmeta);
+
+            player.getEquipment().setItemInMainHand(swiftredstone);
+            player.sendMessage(ChatColor.WHITE + "The sugar infuses into the redstone, making a redstone that would be good to put on food.");
+            item2.setAmount(0);
+            player.giveExp(-900);
         }
+
+
     }
-
-
 }

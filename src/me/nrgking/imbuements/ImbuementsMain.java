@@ -1,9 +1,6 @@
 package me.nrgking.imbuements;
 
-import me.nrgking.imbuements.Imbuements.FireResFruit;
-import me.nrgking.imbuements.Imbuements.Freeze;
-import me.nrgking.imbuements.Imbuements.Glow;
-import me.nrgking.imbuements.Imbuements.Poison;
+import me.nrgking.imbuements.Imbuements.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -26,11 +23,13 @@ public final class ImbuementsMain extends JavaPlugin {
     public static FireResFruit fireResFruit;
     public static Poison poison;
     public static Freeze freeze;
+    public static SwiftSteak swiftSteak;
 
     public static NamespacedKey glowkey;
     public static NamespacedKey firereskey;
     public static NamespacedKey poisonkey;
     public static NamespacedKey freezekey;
+    public static NamespacedKey swiftkey;
 
     @Override
     public void onEnable() {
@@ -39,11 +38,13 @@ public final class ImbuementsMain extends JavaPlugin {
         NamespacedKey firereskey = (new NamespacedKey(this, "fireres"));
         NamespacedKey poisonkey = (new NamespacedKey(this, "poison"));
         NamespacedKey freezekey = (new NamespacedKey(this, "freeze"));
+        NamespacedKey swiftkey = (new NamespacedKey(this, "swift"));
 
         this.glowkey = glowkey;
         this.poisonkey = poisonkey;
         this.firereskey = firereskey;
         this.freezekey = freezekey;
+        this.swiftkey = swiftkey;
 
 
         this.getServer().getPluginManager().registerEvents(new Glow(), this );
@@ -53,6 +54,8 @@ public final class ImbuementsMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new Poison(), this );
 
         this.getServer().getPluginManager().registerEvents(new Freeze(), this);
+
+        this.getServer().getPluginManager().registerEvents(new SwiftSteak(), this);
 
         this.getServer().getPluginManager().registerEvents(new ArtificerTable(), this);
 
