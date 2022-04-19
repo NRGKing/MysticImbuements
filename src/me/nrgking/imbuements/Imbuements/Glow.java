@@ -25,6 +25,8 @@ public class Glow implements Listener {
     NamespacedKey freezekey = ImbuementsMain.freezekey;
     NamespacedKey poisonkey = ImbuementsMain.poisonkey;
     NamespacedKey glowkey = ImbuementsMain.glowkey;
+    NamespacedKey witherkey = ImbuementsMain.witherkey;
+
     FileConfiguration c = ImbuementsMain.getPlugin().c;
 
     @EventHandler
@@ -80,7 +82,7 @@ public class Glow implements Listener {
                         if (data2.has(glowkey, PersistentDataType.STRING)) {
                             if (item.getType().equals(Material.DIAMOND_SWORD) || item.getType().equals(Material.NETHERITE_SWORD)) {
                                 data = meta.getPersistentDataContainer();
-                                if(data.has(freezekey, PersistentDataType.STRING) || data.has(poisonkey, PersistentDataType.STRING) || data.has(glowkey, PersistentDataType.STRING)) return;
+                                if(data.has(freezekey, PersistentDataType.STRING) || data.has(poisonkey, PersistentDataType.STRING) || data.has(glowkey, PersistentDataType.STRING) || data.has(witherkey, PersistentDataType.STRING)) return;
 
                                 if (c.getBoolean("logging")) {
                                     Bukkit.getLogger().info(playername + " imbued the Glowing imbuement");
