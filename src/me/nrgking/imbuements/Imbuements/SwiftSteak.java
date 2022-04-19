@@ -1,10 +1,7 @@
 package me.nrgking.imbuements.Imbuements;
 
 import me.nrgking.imbuements.ImbuementsMain;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -69,6 +66,9 @@ public class SwiftSteak implements Listener {
 
                     item2.setAmount(item2.getAmount() - 1);
                     player.getEquipment().setItemInMainHand(swiftitem);
+                    player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, player.getLocation().getX(), player.getLocation().getY() + 1, player.getLocation().getZ(), 40);
+                    player.playSound(player.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
+
                     if (c.getBoolean("logging")) {
                         Bukkit.getLogger().info(playername + " created a Steak of Swiftness");
                     }

@@ -1,10 +1,7 @@
 package me.nrgking.imbuements;
 
 import me.nrgking.imbuements.ImbuementsMain;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -14,6 +11,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -37,6 +35,20 @@ public class ArtificerTable implements Listener {
 
     NamespacedKey swiftkey = ImbuementsMain.swiftkey;
 
+    @EventHandler
+    public void artificerCreation(BlockPlaceEvent e) {
+        if (!(e.getPlayer() instanceof Player)) return;
+        if (!(e.getBlock().getType() == Material.BOOKSHELF || e.getBlock().getType() == Material.ANVIL) || e.getBlock().getType() == Material.END_STONE_BRICK_SLAB || e.getBlock().getType() == Material.PURPUR_SLAB) return;
+        Block block = e.getBlock();
+        Material up = block.getRelative(BlockFace.UP).getType();
+        Player player = e.getPlayer();
+        if (!(up == Material.PURPUR_SLAB || up == Material.END_STONE_BRICK_SLAB) || block.getRelative(BlockFace.DOWN).getType() == Material.BOOKSHELF) return;
+        e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "As you place the final block, a wave of magic washes over your hand.");
+        player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, player.getLocation().getX(), player.getLocation().getY() + 1, player.getLocation().getZ(), 40);
+        player.playSound(player.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
+
+
+    }
     @EventHandler
     public void artificerUse(PlayerInteractEvent e) {
 
@@ -89,6 +101,9 @@ public class ArtificerTable implements Listener {
             item2.setAmount(item2.getAmount() - 32);
             player.giveExp(-900);
 
+            //swift steak
+            //made with a glowstone dust in main hand and sugar in off hand
+            // (end stone slab)
         } else if (item2.getType().equals(Material.SUGAR) && item2.getAmount() >= 64 && item.getAmount() == 1 && exp >= 900 && upblock == Material.END_STONE_BRICK_SLAB && item.getType() == Material.GLOWSTONE_DUST) {
             List<String> lore = new ArrayList<>();
             ItemStack swiftredstone = new ItemStack(Material.SUGAR, 1);
@@ -107,7 +122,7 @@ public class ArtificerTable implements Listener {
             item2.setAmount(0);
             player.giveExp(-900);
         }
-
-
     }
+
+
 }
