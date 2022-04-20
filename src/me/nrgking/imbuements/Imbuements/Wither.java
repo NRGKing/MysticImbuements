@@ -21,7 +21,6 @@ import java.util.Objects;
 
 public class Wither implements Listener {
 
-
     NamespacedKey freezekey = ImbuementsMain.freezekey;
     NamespacedKey poisonkey = ImbuementsMain.poisonkey;
     NamespacedKey glowkey = ImbuementsMain.glowkey;

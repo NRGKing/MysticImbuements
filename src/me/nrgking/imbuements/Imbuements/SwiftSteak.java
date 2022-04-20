@@ -2,7 +2,6 @@ package me.nrgking.imbuements.Imbuements;
 
 import me.nrgking.imbuements.ImbuementsMain;
 import org.bukkit.*;
-import org.bukkit.block.Biome;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

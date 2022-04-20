@@ -1,16 +1,8 @@
 package me.nrgking.imbuements;
 
 import me.nrgking.imbuements.Imbuements.*;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ImbuementsMain extends JavaPlugin {
@@ -19,13 +11,13 @@ public final class ImbuementsMain extends JavaPlugin {
 
     private static ImbuementsMain plugin;
 
-    public static Glow glow;
-    public static FireResFruit fireResFruit;
-    public static Poison poison;
-    public static Freeze freeze;
-    public static SwiftSteak swiftSteak;
-    public static Wither wither;
-    public static Confetti confetti;
+    //public static Glow glow;
+    //public static FireResFruit fireResFruit;
+    //public static Poison poison;
+    //public static Freeze freeze;
+    //public static SwiftSteak swiftSteak;
+    //public static Wither wither;
+    //public static Confetti confetti;
 
     public static NamespacedKey glowkey;
     public static NamespacedKey firereskey;

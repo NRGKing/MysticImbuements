@@ -146,6 +146,7 @@ public class ArtificerTable implements Listener {
             player.giveExp(-900);
             player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 40);
             player.playSound(block.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
+            //confetti book
         } else if (item2.getType().equals(Material.FIREWORK_ROCKET) && item2.getAmount() >= 4 && item.getAmount() == 1 && exp >= 600 && upblock == Material.PURPUR_SLAB && item.getType() == Material.BOOK) {
             ItemStack clickitem = new ItemStack(Material.BOOK, 1);
             ItemMeta clickmeta = clickitem.getItemMeta();
