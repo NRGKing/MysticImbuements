@@ -47,7 +47,7 @@ public class Confetti implements Listener {
 
                             if (data.has(confettikey, PersistentDataType.STRING)) {
 
-                                player.getWorld().spawnParticle(Particle.REDSTONE, player.getLocation(), 40);
+                                player.getWorld().spawnParticle(Particle.TOTEM, player.getLocation(), 10);
                                 if (!c.getBoolean("permanentimbuements")) { data.remove(confettikey); }
                                 item.setItemMeta(meta);
                             }
