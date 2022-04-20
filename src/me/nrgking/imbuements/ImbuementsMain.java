@@ -24,12 +24,16 @@ public final class ImbuementsMain extends JavaPlugin {
     public static Poison poison;
     public static Freeze freeze;
     public static SwiftSteak swiftSteak;
+    public static Wither wither;
+    public static Confetti confetti;
 
     public static NamespacedKey glowkey;
     public static NamespacedKey firereskey;
     public static NamespacedKey poisonkey;
     public static NamespacedKey freezekey;
     public static NamespacedKey swiftkey;
+    public static NamespacedKey witherkey;
+    public static NamespacedKey confettikey;
 
     @Override
     public void onEnable() {
@@ -39,12 +43,16 @@ public final class ImbuementsMain extends JavaPlugin {
         NamespacedKey poisonkey = (new NamespacedKey(this, "poison"));
         NamespacedKey freezekey = (new NamespacedKey(this, "freeze"));
         NamespacedKey swiftkey = (new NamespacedKey(this, "swift"));
+        NamespacedKey witherkey = (new NamespacedKey(this, "wither"));
+        NamespacedKey confettikey = (new NamespacedKey(this, "confetti"));
 
         this.glowkey = glowkey;
         this.poisonkey = poisonkey;
         this.firereskey = firereskey;
         this.freezekey = freezekey;
         this.swiftkey = swiftkey;
+        this.witherkey = witherkey;
+        this.confettikey = confettikey;
 
 
         this.getServer().getPluginManager().registerEvents(new Glow(), this );
@@ -59,11 +67,16 @@ public final class ImbuementsMain extends JavaPlugin {
 
         this.getServer().getPluginManager().registerEvents(new ArtificerTable(), this);
 
+        this.getServer().getPluginManager().registerEvents(new Wither(), this);
+
+        this.getServer().getPluginManager().registerEvents(new Confetti(), this);
+
         c.addDefault("logging", true);
         c.addDefault("poisonduration", 100);
         c.addDefault("glowingduration", 100);
         c.addDefault("permanentimbuements", false);
         c.addDefault("freezeticks", 140);
+        c.addDefault("witherduration", 40);
         c.options().copyDefaults(true);
         saveConfig();
     }

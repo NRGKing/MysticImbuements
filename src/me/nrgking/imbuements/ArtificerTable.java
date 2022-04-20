@@ -23,6 +23,7 @@ import javax.naming.Name;
 import java.util.ArrayList;
 import java.util.List;
 
+import static me.nrgking.imbuements.ImbuementsMain.confettikey;
 import static me.nrgking.imbuements.ImbuementsMain.swiftkey;
 
 public class ArtificerTable implements Listener {
@@ -34,6 +35,8 @@ public class ArtificerTable implements Listener {
     NamespacedKey glowkey = ImbuementsMain.glowkey;
     NamespacedKey swiftkey = ImbuementsMain.swiftkey;
     NamespacedKey witherkey = ImbuementsMain.witherkey;
+
+
 
     @EventHandler
     public void artificerCreation(BlockPlaceEvent e) {
@@ -66,7 +69,7 @@ public class ArtificerTable implements Listener {
         Block block = e.getClickedBlock();
         if (!(block.getType().equals(Material.BOOKSHELF))) return;
         if (!(item.getType().equals(Material.BOOK) || item.getType().equals(Material.GLOWSTONE_DUST))) return;
-        if (!(block.getRelative(BlockFace.UP).getType() == (Material.PURPUR_SLAB) || (block.getRelative(BlockFace.UP).getType() == (Material.END_STONE_BRICK_SLAB))));
+        if (!(block.getRelative(BlockFace.UP).getType() == (Material.PURPUR_SLAB) || (block.getRelative(BlockFace.UP).getType() == (Material.END_STONE_BRICK_SLAB)))) return;
 
         Material upblock = block.getRelative(BlockFace.UP).getType();
         Integer exp = player.getTotalExperience();
@@ -143,8 +146,22 @@ public class ArtificerTable implements Listener {
             player.giveExp(-900);
             player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 40);
             player.playSound(block.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
+        } else if (item2.getType().equals(Material.FIREWORK_ROCKET) && item2.getAmount() >= 4 && item.getAmount() == 1 && exp >= 600 && upblock == Material.PURPUR_SLAB && item.getType() == Material.BOOK) {
+            ItemStack clickitem = new ItemStack(Material.BOOK, 1);
+            ItemMeta clickmeta = clickitem.getItemMeta();
+            PersistentDataContainer clickdata = clickmeta.getPersistentDataContainer();
+            clickmeta.setDisplayName(ChatColor.BLUE + "Book of Joy");
+            clickdata.set(confettikey, PersistentDataType.STRING, "confetti");
+            clickitem.setItemMeta(clickmeta);
+
+            player.getEquipment().setItemInMainHand(clickitem);
+            player.sendMessage(ChatColor.LIGHT_PURPLE + "The fireworks dissolve into paper, which gathers in the book.");
+            item2.setAmount(item2.getAmount() - 4);
+            player.giveExp(-600);
+            player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 40);
+            player.playSound(block.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
+
         }
+
     }
-
-
 }
