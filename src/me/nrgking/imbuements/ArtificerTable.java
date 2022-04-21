@@ -35,6 +35,7 @@ public class ArtificerTable implements Listener {
     NamespacedKey glowkey = ImbuementsMain.glowkey;
     NamespacedKey swiftkey = ImbuementsMain.swiftkey;
     NamespacedKey witherkey = ImbuementsMain.witherkey;
+    NamespacedKey powerkey = ImbuementsMain.powerkey;
 
 
 
@@ -47,7 +48,7 @@ public class ArtificerTable implements Listener {
         Player player = e.getPlayer();
         if (!(up == Material.PURPUR_SLAB || up == Material.END_STONE_BRICK_SLAB) || block.getRelative(BlockFace.DOWN).getType() == Material.BOOKSHELF) return;
         e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "As you place the final block, a wave of magic washes over your hand.");
-        player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 40);
+        player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 20);
         player.playSound(block.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
 
     }
@@ -75,6 +76,7 @@ public class ArtificerTable implements Listener {
         Integer exp = player.getTotalExperience();
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer data = meta.getPersistentDataContainer();
+        if(data.has(powerkey, PersistentDataType.STRING) || data.has(freezekey, PersistentDataType.STRING) || data.has(poisonkey, PersistentDataType.STRING) || data.has(glowkey, PersistentDataType.STRING) || data.has(witherkey, PersistentDataType.STRING)) return;
 
         //glow spellbook
         if (item2.getType().equals(Material.GLOWSTONE_DUST) && item2.getAmount() >= 8 && item.getAmount() == 1 && exp >= 700 && upblock == Material.PURPUR_SLAB && item.getType() == Material.BOOK) {
@@ -89,7 +91,7 @@ public class ArtificerTable implements Listener {
             player.sendMessage(ChatColor.YELLOW + "The book in your main hand glows with magic.");
             item2.setAmount(item2.getAmount() - 8);
             player.giveExp(-700);
-            player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 40);
+            player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 20);
             player.playSound(block.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
 
             //poison spellbook
@@ -105,7 +107,7 @@ public class ArtificerTable implements Listener {
             player.sendMessage(ChatColor.GREEN + "The book in your main hand dissolves into repulsive sludge.");
             item2.setAmount(item2.getAmount() - 32);
             player.giveExp(-900);
-            player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 40);
+            player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 20);
             player.playSound(block.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
 
             // wither spellbook
@@ -121,7 +123,7 @@ public class ArtificerTable implements Listener {
             player.sendMessage(ChatColor.BLACK + "A spectral hand reaches out and grabs your wrist, dissolving the book within your hand.");
             item2.setAmount(item2.getAmount() - 32);
             player.giveExp(-900);
-            player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 40);
+            player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 20);
             player.playSound(block.getLocation(), Sound.ENTITY_VEX_CHARGE, 1.0f, 1.0f);
 
             //swift steak
@@ -133,7 +135,7 @@ public class ArtificerTable implements Listener {
             ItemMeta swiftmeta = swiftredstone.getItemMeta();
             PersistentDataContainer swiftdata = swiftmeta.getPersistentDataContainer();
 
-            swiftmeta.setDisplayName(ChatColor.YELLOW + "Speed Enhancing Spice");
+            swiftmeta.setDisplayName(ChatColor.YELLOW + "Speed Enhancing Powder");
             lore.add(ChatColor.DARK_GRAY + "Would fit well on " + ChatColor.LIGHT_PURPLE + "steak.");
             swiftmeta.setLore(lore);
 
@@ -144,7 +146,7 @@ public class ArtificerTable implements Listener {
             player.sendMessage(ChatColor.WHITE + "The sugar infuses into the dust, making a speedy-feeling mixture.");
             item2.setAmount(0);
             player.giveExp(-900);
-            player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 40);
+            player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 20);
             player.playSound(block.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
 
             //confetti book
@@ -160,7 +162,23 @@ public class ArtificerTable implements Listener {
             player.sendMessage(ChatColor.LIGHT_PURPLE + "The fireworks dissolve into paper, which gathers in the book.");
             item2.setAmount(item2.getAmount() - 4);
             player.giveExp(-600);
-            player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 40);
+            player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 20);
+            player.playSound(block.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
+
+            // power spellbook
+        } else if (item2.getType().equals(Material.BLAZE_ROD) && item2.getAmount() >= 3 && item.getAmount() == 1 && exp >= 600 && upblock == Material.END_STONE_BRICK_SLAB && item.getType() == Material.BOOK) {
+            ItemStack clickitem = new ItemStack(Material.BOOK, 1);
+            ItemMeta clickmeta = clickitem.getItemMeta();
+            PersistentDataContainer clickdata = clickmeta.getPersistentDataContainer();
+            clickmeta.setDisplayName(ChatColor.RED + "Book of Power");
+            clickdata.set(powerkey, PersistentDataType.STRING, "power");
+            clickitem.setItemMeta(clickmeta);
+
+            player.getEquipment().setItemInMainHand(clickitem);
+            player.sendMessage(ChatColor.RED + "The energy in the blaze rods melt into the book.");
+            item2.setAmount(item2.getAmount() - 3);
+            player.giveExp(-600);
+            player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 20);
             player.playSound(block.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
 
         }

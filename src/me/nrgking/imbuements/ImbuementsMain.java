@@ -26,6 +26,7 @@ public final class ImbuementsMain extends JavaPlugin {
     public static NamespacedKey swiftkey;
     public static NamespacedKey witherkey;
     public static NamespacedKey confettikey;
+    public static NamespacedKey powerkey;
 
     @Override
     public void onEnable() {
@@ -37,6 +38,7 @@ public final class ImbuementsMain extends JavaPlugin {
         NamespacedKey swiftkey = (new NamespacedKey(this, "swift"));
         NamespacedKey witherkey = (new NamespacedKey(this, "wither"));
         NamespacedKey confettikey = (new NamespacedKey(this, "confetti"));
+        NamespacedKey powerkey = (new NamespacedKey(this, "power"));
 
         this.glowkey = glowkey;
         this.poisonkey = poisonkey;
@@ -45,6 +47,7 @@ public final class ImbuementsMain extends JavaPlugin {
         this.swiftkey = swiftkey;
         this.witherkey = witherkey;
         this.confettikey = confettikey;
+        this.powerkey = powerkey;
 
 
         this.getServer().getPluginManager().registerEvents(new Glow(), this );
@@ -62,6 +65,8 @@ public final class ImbuementsMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new Wither(), this);
 
         this.getServer().getPluginManager().registerEvents(new Confetti(), this);
+
+        this.getServer().getPluginManager().registerEvents(new Power(), this);
 
         c.addDefault("logging", true);
         c.addDefault("poisonduration", 100);
