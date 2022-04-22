@@ -26,15 +26,15 @@ public class Power implements Listener {
     NamespacedKey glowkey = ImbuementsMain.glowkey;
     NamespacedKey witherkey = ImbuementsMain.witherkey;
     NamespacedKey powerkey = ImbuementsMain.powerkey;
+    NamespacedKey speedkey = ImbuementsMain.speedkey;
 
     FileConfiguration c = ImbuementsMain.getPlugin().c;
 
     @EventHandler
     public void PowerUse(PlayerInteractEvent e) {
         if(e.getHand() == EquipmentSlot.HAND) return;
-        if (e.getClickedBlock() != null) {
-            if (e.getClickedBlock().getType().equals(Material.BOOKSHELF)) return;
-        }
+        if (e.getClickedBlock() == null) return;
+        if (e.getClickedBlock().getType().equals(Material.BOOKSHELF)) return;
 
         Player player = (Player) e.getPlayer();
         String playername = player.getName();
@@ -45,12 +45,10 @@ public class Power implements Listener {
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return;
         PersistentDataContainer data = meta.getPersistentDataContainer();
-        e.getPlayer().sendMessage("2");
-
         if (!(item.getType().equals(Material.DIAMOND_SWORD) || item.getType().equals(Material.NETHERITE_SWORD))) return;
         if (data.has(powerkey, PersistentDataType.STRING)) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 3600, 1));
-            e.getPlayer().sendMessage("3");
+            Integer duration = c.getInt("pvpeffectduration");
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, duration, 1));
             if (!c.getBoolean("permanentimbuements")) {
                     data.remove(powerkey);
                     item.setItemMeta(meta);
@@ -84,7 +82,7 @@ public class Power implements Listener {
                     if (data2.has(powerkey, PersistentDataType.STRING)) {
                         if (item.getType().equals(Material.DIAMOND_SWORD) || item.getType().equals(Material.NETHERITE_SWORD)) {
                             data = meta.getPersistentDataContainer();
-                            if(data.has(powerkey, PersistentDataType.STRING) || data.has(freezekey, PersistentDataType.STRING) || data.has(poisonkey, PersistentDataType.STRING) || data.has(glowkey, PersistentDataType.STRING) || data.has(witherkey, PersistentDataType.STRING)) return;
+                            if(data.has(powerkey, PersistentDataType.STRING) || data.has(speedkey, PersistentDataType.STRING) || data.has(freezekey, PersistentDataType.STRING) || data.has(poisonkey, PersistentDataType.STRING) || data.has(glowkey, PersistentDataType.STRING) || data.has(witherkey, PersistentDataType.STRING)) return;
 
                             if (c.getBoolean("logging")) {
                                 Bukkit.getLogger().info(playername + " imbued the Power imbuement");

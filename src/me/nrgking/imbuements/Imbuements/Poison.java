@@ -25,6 +25,8 @@ public class Poison implements Listener {
     NamespacedKey poisonkey = ImbuementsMain.poisonkey;
     NamespacedKey glowkey = ImbuementsMain.glowkey;
     NamespacedKey witherkey = ImbuementsMain.witherkey;
+    NamespacedKey speedkey = ImbuementsMain.speedkey;
+    NamespacedKey powerkey = ImbuementsMain.powerkey;
 
     FileConfiguration c = ImbuementsMain.getPlugin().c;
 
@@ -80,7 +82,7 @@ public class Poison implements Listener {
                     if (data2.has(poisonkey, PersistentDataType.STRING)) {
                         if (item.getType().equals(Material.DIAMOND_SWORD) || item.getType().equals(Material.NETHERITE_SWORD)) {
                             data = meta.getPersistentDataContainer();
-                            if(data.has(freezekey, PersistentDataType.STRING) || data.has(poisonkey, PersistentDataType.STRING) || data.has(glowkey, PersistentDataType.STRING) || data.has(witherkey, PersistentDataType.STRING)) return;
+                            if(data.has(powerkey, PersistentDataType.STRING) || data.has(speedkey, PersistentDataType.STRING) || data.has(freezekey, PersistentDataType.STRING) || data.has(poisonkey, PersistentDataType.STRING) || data.has(glowkey, PersistentDataType.STRING) || data.has(witherkey, PersistentDataType.STRING)) return;
 
                             if (c.getBoolean("logging")) {
                                 Bukkit.getLogger().info(playername + " imbued the Poison imbuement");

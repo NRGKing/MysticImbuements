@@ -27,6 +27,7 @@ public final class ImbuementsMain extends JavaPlugin {
     public static NamespacedKey witherkey;
     public static NamespacedKey confettikey;
     public static NamespacedKey powerkey;
+    public static NamespacedKey speedkey;
 
     @Override
     public void onEnable() {
@@ -39,6 +40,7 @@ public final class ImbuementsMain extends JavaPlugin {
         NamespacedKey witherkey = (new NamespacedKey(this, "wither"));
         NamespacedKey confettikey = (new NamespacedKey(this, "confetti"));
         NamespacedKey powerkey = (new NamespacedKey(this, "power"));
+        NamespacedKey speedkey = (new NamespacedKey(this, "speed"));
 
         this.glowkey = glowkey;
         this.poisonkey = poisonkey;
@@ -48,6 +50,7 @@ public final class ImbuementsMain extends JavaPlugin {
         this.witherkey = witherkey;
         this.confettikey = confettikey;
         this.powerkey = powerkey;
+        this.speedkey = speedkey;
 
 
         this.getServer().getPluginManager().registerEvents(new Glow(), this );
@@ -68,12 +71,15 @@ public final class ImbuementsMain extends JavaPlugin {
 
         this.getServer().getPluginManager().registerEvents(new Power(), this);
 
+        this.getServer().getPluginManager().registerEvents(new Speed(), this);
+
         c.addDefault("logging", true);
         c.addDefault("poisonduration", 100);
         c.addDefault("glowingduration", 100);
         c.addDefault("permanentimbuements", false);
         c.addDefault("freezeticks", 140);
         c.addDefault("witherduration", 40);
+        c.addDefault("pvpeffectduration", 3600);
         c.options().copyDefaults(true);
         saveConfig();
     }

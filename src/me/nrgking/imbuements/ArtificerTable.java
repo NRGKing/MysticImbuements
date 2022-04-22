@@ -36,6 +36,7 @@ public class ArtificerTable implements Listener {
     NamespacedKey swiftkey = ImbuementsMain.swiftkey;
     NamespacedKey witherkey = ImbuementsMain.witherkey;
     NamespacedKey powerkey = ImbuementsMain.powerkey;
+    NamespacedKey speedkey = ImbuementsMain.speedkey;
 
 
 
@@ -76,7 +77,7 @@ public class ArtificerTable implements Listener {
         Integer exp = player.getTotalExperience();
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer data = meta.getPersistentDataContainer();
-        if(data.has(powerkey, PersistentDataType.STRING) || data.has(freezekey, PersistentDataType.STRING) || data.has(poisonkey, PersistentDataType.STRING) || data.has(glowkey, PersistentDataType.STRING) || data.has(witherkey, PersistentDataType.STRING)) return;
+        if(data.has(powerkey, PersistentDataType.STRING) || data.has(speedkey, PersistentDataType.STRING) || data.has(freezekey, PersistentDataType.STRING) || data.has(poisonkey, PersistentDataType.STRING) || data.has(glowkey, PersistentDataType.STRING) || data.has(witherkey, PersistentDataType.STRING)) return;
 
         //glow spellbook
         if (item2.getType().equals(Material.GLOWSTONE_DUST) && item2.getAmount() >= 8 && item.getAmount() == 1 && exp >= 700 && upblock == Material.PURPUR_SLAB && item.getType() == Material.BOOK) {
@@ -177,6 +178,22 @@ public class ArtificerTable implements Listener {
             player.getEquipment().setItemInMainHand(clickitem);
             player.sendMessage(ChatColor.RED + "The energy in the blaze rods melt into the book.");
             item2.setAmount(item2.getAmount() - 3);
+            player.giveExp(-600);
+            player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 20);
+            player.playSound(block.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
+
+            // speed spellbook
+        } else if (item2.getType().equals(Material.GUNPOWDER) && item2.getAmount() >= 2 && item.getAmount() == 1 && exp >= 600 && upblock == Material.END_STONE_BRICK_SLAB && item.getType() == Material.BOOK) {
+            ItemStack clickitem = new ItemStack(Material.BOOK, 1);
+            ItemMeta clickmeta = clickitem.getItemMeta();
+            PersistentDataContainer clickdata = clickmeta.getPersistentDataContainer();
+            clickmeta.setDisplayName(ChatColor.YELLOW + "Book of Speed");
+            clickdata.set(speedkey, PersistentDataType.STRING, "speed");
+            clickitem.setItemMeta(clickmeta);
+
+            player.getEquipment().setItemInMainHand(clickitem);
+            player.sendMessage(ChatColor.YELLOW + "The gunpowder melts into the book, charging it with explosive speed.");
+            item2.setAmount(item2.getAmount() - 2);
             player.giveExp(-600);
             player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ(), 20);
             player.playSound(block.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.0f);
